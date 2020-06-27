@@ -1,0 +1,77 @@
+Zaprojektowana baza danych znajduje swoje wykorzystanie w firmie, która zajmuje się wypożyczaniem aut osobom prywatnym. Firma posiada wiele salonów na terenie kraju i zatrudnia wielu pracowników. Ze względu na zapotrzebowanie przechowywania dużej ilości danych różnego typu zdecydowałem się na zastosowanie modelu relacyjnego. Baza danych została zaprojektowana w 3 postaci normalnej. Z racji iż danych do przechowywania jest wiele i często się mogą one zmieniać, w bazie danych zostały zastosowane niezbędne więzy integralności pozwalające na stałą spójność danych w wypadku ich modyfikacji. Wprowadzony model danych wymaga od użytkownika podstawowej wiedzy na temat baz danych i języka sql. Do korzyści płynących z zastosowania modelu relacyjnego w tej bazie możemy zaliczyć szybkość, prostotę, łatwe usuwanie błędów oraz współbieżność. Natomiast wadą zastosowanego modelu jest fakt, że  wymaga on od użytkownika znajomości języka sql, ponadto brakuje w nim środków do przechowywania informacji proceduralnych.
+
+Dokumentacja typów danych i omówienie na podstawie diagramu ER.
+
+Przykładowe zapytania:
+Pierwsze zapytanie:
+USE `wypozyczalnia`;SELECT 
+    e.Imie,
+    e.Nazwisko,
+    e.PESEL,
+    CONCAT(m.imie, ' ', m.nazwisko) AS Przełożony
+FROM
+    pracownicy e
+        INNER JOIN
+    pracownicy m ON m.idpracownika = e.idprzelozonego -- Wyświetla ono dane pracownika wraz z imieniem i nazwiskiem przełożonego.
+Jeśli pracownik nie posiada przełożonego nie zostaną jego dane wyświetlone.
+
+
+Drugie zapytanie:
+
+USE `wypozyczalnia`;
+SELECT 
+    CONCAT(p.imie, ' ', p.nazwisko) AS 'Imie i nazwisko',
+    s.miasto,
+    CONCAT(s.ulica, ' ', s.nrbudynku) AS 'Adres'
+FROM
+    pracownicysalonu ps
+        LEFT JOIN
+    pracownicy p ON ps.idpracownika = p.idpracownika
+        LEFT JOIN
+    salony s ON ps.idsalonu = s.idsalonu -- Zapytanie wyświetla Salony oraz dane pracowników którzy w nich pracują.
+
+Trzecie zapytanie:
+USE `wypozyczalnia`;
+SELECT 
+    CONCAT(k.imie, ' ', k.nazwisko) AS 'Imie i nazwisko',
+    d.email,
+    d.nrtelefonu
+FROM
+    rezerwacje r
+        LEFT JOIN
+    klient k ON r.idklienta = k.idklienta
+        LEFT JOIN
+    danekontaktoweklienta d ON k.idklienta = d.idklienta -- Wyświetla Klientów wraz z ich danymi kontaktowymi.
+
+Czwarte zapytanie:
+USE `wypozyczalnia`;
+SELECT 
+    CONCAT(p.imie, ' ', p.nazwisko) AS 'Imie i nazwisko', d.email, d.nrtelefonu,s.miasto,CONCAT(s.ulica, ' ', s.nrbudynku)AS 'Adres'
+FROM
+    pracownicysalonu ps
+        LEFT JOIN
+    pracownicy p ON ps.idpracownika = p.idpracownika
+        LEFT JOIN
+    salony s ON ps.idsalonu = s.idsalonu
+        LEFT JOIN
+    danekontaktowepracownika d ON p.idpracownika = d.idpracownika -- Zapytanie wyświetla imię i nazwisko pracownika z jego danymi  kontaktowymi oraz salon w którym obecnie pracuje.
+
+Piąte Zapytanie:
+USE `wypozyczalnia`;
+SELECT 
+    CONCAT(k.imie, ' ', k.nazwisko) AS 'Imie i nazwisko', k.pesel,d.email,d.nrtelefonu
+FROM
+    rezerwacje r
+        LEFT JOIN
+    klient k ON r.idklienta = k.idklienta
+        LEFT JOIN
+    danekontaktoweklienta d ON k.idklienta = d.idklienta
+        LEFT JOIN
+    oplatarezerwacji o ON r.idrezerwacji = o.idrezerwacji
+WHERE
+    o.czyzaplacono = 0 -- Wyświetla dane klientów, wraz z kontaktem do nich, którzy nie opłacili rezerwacji.
+
+
+
+
+

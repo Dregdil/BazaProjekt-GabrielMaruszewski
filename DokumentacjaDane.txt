@@ -1,0 +1,301 @@
+PK-Primary key
+FK-Foreign key
+NN-NOT NULL
+UQ-Unique
+
+Baza danych została zaprojektowana w 3 postaci normalnej.
+
+1.pracownicy
+	- idpracownika (PK) NN INT //identyfikator pracownika
+	- imie NN VARCHAR(15) //przechowuje imie pracownika (maks 25 znaków)
+	- nazwisko NN VARCHAR(25) //przechowuje nazwisko pracownika (maks 25 znaków)
+	- pesel NN UQ CHAR(11) //przechowuje pesel pracownika o nie zmiennej długości 11 znaków PESEL musi być unikalny
+	- idprzelozonego (FK) INT //przechowuje identyfikator przełożonego jeśli wartością jest NULL oznacza to że praciwnik nie ma przełożonego
+Przykładowe dane oddzielone ",":
+
+1,Rabbi,Bellsham,83110924772,
+2,Purcell,Hadwick,69032887968,1
+3,Minni,Crimmins,93090514492,1
+4,Brandtr,McAlroy,72080574883,1
+5,Josephine,McGrill,58050584825,1
+6,Allard,Dilleway,98071531541,1
+7,Hatty,Bendix,55032548266,1
+8,Martie,Alekhov,88092087822,1
+9,Bernadette,Driscoll,52012012119,1
+10,Drucie,Raun,97111585458,1
+
+2.Salony
+	- idsalonu(PK) NN INT // przechowuje identyfikator salonu
+	- miasto NN VARCHAR(20) //przechowuje nazwe miasta w którym znajduje się salon (maks 20 znaków)
+	- ulica NN VARCHAR(30) //przechowuje ulice na której znajduje się salon (maks 20 znaków)
+	- nrBudynku NN INT //przechowuje numer budynku w którym jest salon
+Przykładowe dane oddzielone ",":
+
+1,Kafyr-Kumukh,Texas,46
+2,Gombong,Springview,71
+3,Arvika,Harper,66
+4,Macaé,Summit,39
+5,Kapatagan,Rigney,61
+6,Bilad,Anhalt,35
+7,Lebedinovka,7th,31
+8,Mailsi,Sunnyside,32
+9,Charlottetown,"Briar Crest",12
+10,Łagów,Swallow,9
+
+3.pracownicySalonu
+	- idpracownika (FK) NN INT //przechowuje identyfikator pracownika
+	- idsalonu (FK) NN INT //przechowuje identyfikator salonu
+Przykładowe dane oddzielone ",":
+
+1,10
+2,9
+3,8
+4,7
+5,6
+6,5
+7,4
+8,3
+9,2
+10,1
+
+4.Samochody
+	- idsamochodu(PK) NN INT //przechowuje identyfikator samochodu
+	- model NN VARCHAR(45) //przechowuje model samochodu
+	- cena NN DECIMAL(15,2) //przechowuje cene samochodu (maks 2 miejsca po przecinku
+	- idproducenta (FK) NN INT //przechowuje identyfikator producenta
+Przykładowe dane oddzielone ",":
+
+1,Century,3613.64,1
+2,LeSabre,3065.19,1
+3,"Town Car",3760.39,2
+4,M5,4972.44,3
+5,Pathfinder,3754.89,4
+6,Avanti,2958.99,5
+7,CX-9,3434.84,6
+8,Sierra,3259.98,7
+9,Corolla,4897.71,8
+10,Rio5,3326.81,9
+11,"Yukon XL 1500",4953.31,7
+12,FX,2991.47,10
+13,Century,3610.54,1
+14,Capri,4778.70,11
+15,X5,3224.83,3
+16,Silverado,4732.00,12
+17,Express,4401.20,12
+18,Sunbird,3389.01,13
+19,Sable,3943.75,11
+20,RS6,2660.39,14
+
+5.Producent
+	- idproducent(PK) NN INT //przechowuje identyfikator producenta
+	- nazwa NN VARCHAR(30) //przechowuje nazwe producenta
+Przykładowe dane oddzielone ",":
+
+1,Buick
+2,Lincoln
+3,BMW
+4,Nissan
+5,Studebaker
+6,Mazda
+7,GMC
+8,Toyota
+9,Kia
+10,Infiniti
+11,Mercury
+12,Chevrolet
+13,Pontiac
+14,Audi
+
+6.Klient
+	- idklienta(PK) NN INT //przechowuje identyfikator klienta
+	- Imie NN VARCHAR(15) //przechowuje imie klienta (maks 15 znaków)
+	- nazwisko NN VARCHAR(25) //przechowuje nazwisko klienta (maks 25 znaków)
+	- pesel NN UQ CHAR(11) //przechowuje pesel klienta o nie zmiennej długości 11 znaków PESEL musi być unikalny
+Przykładowe dane oddzielone ",":
+
+1,Brenden,Stife,54021477994
+2,Beryle,Money,82030564822
+3,Hamid,Tod,63041059477
+4,Marney,Brickwood,49052026448
+5,Ailey,Cleyburn,73021182817
+6,Constanta,Stayte,85072515593
+7,Dayle,Ratt,88031945567
+8,Natty,Gianninotti,76091975293
+9,Andros,Birdwhistell,57092697724
+10,Maritsa,Burtwhistle,56071271382
+11,Winthrop,Grinston,02241517824
+12,Marielle,McKinlay,98041258311
+13,Casey,Melladew,01270588861
+14,Tad,Dillingstone,55110232122
+15,Izzy,Melwall,88100138173
+16,Vaclav,McMahon,93123085515
+17,Wade,Gimlet,45092339939
+18,Marleah,Outridge,49051993259
+19,Brittni,Boar,47070294823
+20,Odo,Rispin,91092378654
+
+7.WynajeteSamochody
+	- idwynsamochodu(PK) NN INT //przechowuje identyfikator wynajętego samochodu
+	- idsamochodu (FK) NN INT //przechowuje identyfikator samochodu
+	- idsalonu (FK) NN INT //przechowuje identyfikator salonu
+Przykładowe dane oddzielone ",":
+
+1,18,2
+2,10,3
+3,4,8
+4,14,9
+5,5,3
+6,12,5
+7,7,8
+8,20,3
+9,3,6
+10,19,1
+
+
+8.OkresWynajęcia
+	- idwynsamochodu (FK) NN INT //przechowuje identyfikator wynajętego samochodu
+	- datawyn NN DATE //przechowuje date rozpoczęcia wynajmu format('yyyy-mm-dd')
+	- datazak NN DATE //przechowuje date zakończenia wynajmu format('yyyy-mm-dd')
+Przykładowe dane oddzielone ",":
+
+1,2018-08-06,2021-01-22
+2,2018-10-31,2020-12-21
+3,2018-08-14,2021-04-03
+4,2019-01-01,2020-07-21
+5,2019-02-25,2020-08-11
+6,2019-03-27,2020-10-20
+7,2019-02-25,2021-04-10
+8,2019-03-14,2020-11-08
+9,2018-10-12,2021-03-25
+10,2018-09-30,2021-02-20
+
+9.Rezerwacje
+	- idrezerwacji(PK) NN INT //przechowuje identyfikator rezerwacji
+	- idklienta (FK) NN INT //przechowuje identyfikator klienta
+	- idsamochodu (FK) NN INT //przechowuje identyfikator samochodu
+	- idsalonu (FK) NN INT //przechowuje identyfikator salonu
+Przykładowe dane oddzielone ",":
+
+1,16,16,9
+2,18,5,10
+3,19,7,6
+4,5,8,5
+5,17,18,6
+6,15,11,4
+7,12,3,5
+8,20,4,2
+9,1,9,7
+10,7,6,5
+
+10.Opłatarezerwacji
+	- idrezerwacji (FK) NN INT //przechowuje identyfikator rezerwacji
+	- czyzaplacono NN TINYINT(1) //przechowuje informacje czy rezerwacja została opłacona (możliwe wartości to 0-niezapłacona lub 1-zapłacona)
+Przykładowe dane oddzielone ",":
+
+1,0
+2,0
+3,0
+4,1
+5,1
+6,0
+7,0
+8,1
+9,1
+10,0
+
+11.Dostepnoscsamochodu
+	- idsamochodu (FK) NN INT //przechowuje identyfikator samochodu
+	- idsalonu (FK) NN INT //przechowuje identyfikator salonu
+	- dostepnosc NN TINYINT(1) //przechowuje informacje czy samochód jest dostępny w salonie (możliwe wartości to 0-niedostępny lub 1-dostępny)
+Przykładowe dane oddzielone ",":
+
+12,2,0
+16,7,1
+20,7,1
+20,10,0
+20,4,1
+18,10,0
+7,2,0
+5,9,0
+16,2,1
+2,1,0
+17,10,1
+17,4,0
+17,9,1
+20,7,1
+11,10,1
+9,10,1
+9,1,0
+18,4,1
+6,8,0
+4,3,1
+9,10,1
+20,9,0
+5,10,0
+13,1,0
+14,8,0
+7,9,0
+13,7,1
+20,8,0
+15,9,0
+20,6,1
+
+12.PrzezKogoWynajete
+	- idwynsamochodu (FK) NN INT //przechowuje identyfikator wynajętego samochodu
+	- idklienta (FK) NN INT //przechowuje identyfikator klienta który wynają ten samochód
+Przykładowe dane oddzielone ",":
+
+1,12
+2,8
+3,17
+4,15
+5,16
+6,1
+7,2
+8,7
+9,13
+10,20
+
+13.DaneKontaktoweKlienta
+	- idklienta (FK) NN INT //przechowuje identyfikator klienta
+	- numerTelefonu NN CHAR(9) //przechowuje numer telefonu klienta o niezmiennej długości 9
+	- email NN VARCHAR(50) //przechowuje email klienta (maks 50 znaków)
+Przykładowe dane oddzielone ",":
+
+1,438968534,rkavanagh0@aboutads.info
+2,689749366,ktoor1@mayoclinic.com
+3,597101701,hwillshear2@surveymonkey.com
+4,701381790,tstit3@google.com.au
+5,327980909,tkneel4@blogspot.com
+6,606659057,pmilmith5@microsoft.com
+7,396305486,cmonteaux6@nytimes.com
+8,865049358,gbeggs7@amazon.de
+9,658921741,jdaft8@state.tx.us
+10,918560732,areide9@abc.net.au
+11,886459961,rfolbigea@cisco.com
+12,884726246,wtrainerb@globo.com
+13,728794144,syorkc@360.cn
+14,191962615,lduddled@nih.gov
+15,362307829,dcastroe@drupal.org
+16,188320412,kmarthenf@csmonitor.com
+17,979647721,vgardeng@feedburner.com
+18,853135679,abrownetth@myspace.com
+19,815886305,ahineri@harvard.edu
+20,687811241,hdenisetj@blogtalkradio.com
+
+14.DaneKontaktowePracownika
+ 	- idpracownika (FK) NN //przechowuje identyfikator pracownika
+	- numerTelefonu NN CHAR(9) //przechowuje numer telefonu pracownika o niezmiennej długości 9
+	- email NN VARCHAR(50) //przechowuje email pracownika ((maks 50 znaków))
+Przykładowe dane oddzielone ",":
+
+1,908559425,cmadill0@oakley.com
+2,809136746,ktiltman1@jugem.jp
+3,969564342,ogrocutt2@walmart.com
+4,265920806,chaime3@pinterest.com
+5,165691369,rpittel4@stumbleupon.com
+6,263257114,mnutten5@ft.com
+7,223616625,lklas6@seesaa.net
+8,701681610,sbalstone7@technorati.com
+9,475702558,mdelatour8@miitbeian.gov.cn
+10,321649952,ahazzard9@buzzfeed.com

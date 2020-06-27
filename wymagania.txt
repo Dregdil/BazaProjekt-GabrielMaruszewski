@@ -1,0 +1,2 @@
+Projekt zostaje przedstawiony do oceny: 3.
+Spełnia on wymagania minimalne oraz zawiera jedną tabelę realizującą relację zwrotną.
